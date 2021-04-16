@@ -6,4 +6,127 @@
 html {
   font-size: 62.5%;
 }
+body {
+  font-family: "Acme", sans-serif;
+  color: rgb(51, 51, 51);
+}
+path,
+svg,
+i {
+  pointer-events: none;
+}
 
+.colors {
+  min-height: 80vh;
+  display: flex;
+  font-size: 1.8rem;
+  justify-content: center;
+  align-items: flex-start;
+  color: rgb(200, 200, 200);
+  overflow: hidden;
+}
+.color {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  flex: 1;
+  position: relative;
+}
+.color h2 {
+  font-size: 2.4rem;
+  margin: 5rem 0;
+  cursor: pointer;
+}
+.controls {
+  display: flex;
+  flex-direction: column;
+}
+.adjust,
+.lock {
+  font-size: 2rem;
+  border: none;
+  background-color: transparent;
+  margin: 2rem 0rem;
+  cursor: pointer;
+}
+.sliders {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  font-size: 1.2rem;
+  width: 80%;
+  position: absolute;
+  bottom: 0%;
+  color: black;
+  background-color: white;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(10rem);
+  -webkit-transform: translateY(10rem);
+  -moz-transform: translateY(10rem);
+  -ms-transform: translateY(10rem);
+  -o-transform: translateY(10rem);
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+}
+.sliders.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0px);
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  -ms-transform: translateY(0px);
+  -o-transform: translateY(0px);
+}
+.close-adjustment {
+  position: absolute;
+  width: 2rem;
+  padding: 0.3rem;
+  font-size: 1rem;
+  cursor: pointer;
+  top: 0;
+  right: 0rem;
+  border: none;
+  background-color: #0a1347;
+  color: white;
+  border-top-right-radius: 2rem;
+  border-bottom-left-radius: 1rem;
+}
+.panel {
+  display: flex;
+  height: 20vh;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.library-panel,
+.generate-panel,
+.save-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+}
+.library,
+.generate,
+.save {
+  cursor: pointer;
+  font-size: 2rem;
+  border: none;
+  color: white;
+  background-color: rgb(10, 19, 71);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+}
