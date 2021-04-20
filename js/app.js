@@ -4,6 +4,8 @@ const generateBtn = document.querySelector(".generate");
 const sliders = document.querySelectorAll(".sliders input");
 const currentHex = document.querySelectorAll(".color h2");
 const adjustmentBtn = document.querySelectorAll(".adjust");
+const adjustmentsContainer = document.querySelectorAll('.sliders');
+const closeAdjustmentBtn = document.querySelectorAll(".close-adjustment");
 const lockBtn = document.querySelector(".lock");
 const copyHexBtn = document.querySelectorAll(".color h2");
 const copyClipboard = document.querySelector(".copy-container");
@@ -27,6 +29,22 @@ copyPopup.addEventListener("transitionend", () => {
   copyClipboard.classList.remove("active");
   copyPopup.classList.remove("active");
 });
+
+adjustmentBtn.forEach((btn, index) => {
+  btn.addEventListener('click', () => {
+    openColorAdjustment(index);
+  });
+});
+
+closeAdjustmentBtn.forEach((btn, index) => {
+  btn.addEventListener('click', () => {
+    closeColorAdjustment(index);
+  });
+});
+
+// ! add slider set
+setTimeout(adjustmentContainerTransition, 2000);
+
 
 // //functions
 function generateHex() {
@@ -156,4 +174,18 @@ function copyToClipboard(index) {
   document.body.removeChild(box);
   copyClipboard.classList.add("active");
   copyPopup.classList.add("active");
+}
+
+function openColorAdjustment(index) {
+  adjustmentsContainer[index].classList.toggle('active');
+}
+
+function closeColorAdjustment(index) {
+  adjustmentsContainer[index].classList.remove('active');
+}
+
+function adjustmentContainerTransition() {
+  adjustmentsContainer.forEach(container => {
+    container.style.transition = `all 0.5s ease-in-out`;
+  });
 }
