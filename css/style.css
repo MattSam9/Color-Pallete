@@ -63,13 +63,13 @@ i {
   background-color: white;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
-  /* pointer-events: none;
+  pointer-events: none;
   opacity: 0;
   transform: translateY(10rem);
   -webkit-transform: translateY(10rem);
   -moz-transform: translateY(10rem);
   -ms-transform: translateY(10rem);
-  -o-transform: translateY(10rem); */
+  -o-transform: translateY(10rem);
 }
 .sliders.active {
   opacity: 1;
@@ -79,11 +79,6 @@ i {
   -moz-transform: translateY(0px);
   -ms-transform: translateY(0px);
   -o-transform: translateY(0px);
-  transition: all 0.5s ease-in-out;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
 }
 .close-adjustment {
   position: absolute;
@@ -201,11 +196,11 @@ input[type="range"]::-moz-range-thumb {
   -moz-border-radius: 2rem;
   -ms-border-radius: 2rem;
   -o-border-radius: 2rem;
-  transition: transform 0.7s ease;
-  -webkit-transition: transform 0.7s ease;
-  -moz-transition: transform 0.7s ease;
-  -ms-transition: transform 0.7s ease;
-  -o-transition: transform 0.7s ease;
+  transition: all 0.9s ease-in-out;
+  -webkit-transition: all 0.9s ease-in-out;
+  -moz-transition: all 0.9s ease-in-out;
+  -ms-transition: all 0.9s ease-in-out;
+  -o-transition: all 0.9s ease-in-out;
   transform: translateY(-2rem);
   -webkit-transform: translateY(-2rem);
   -moz-transform: translateY(-2rem);
