@@ -6,7 +6,7 @@ const currentHex = document.querySelectorAll(".color h2");
 const adjustmentBtn = document.querySelectorAll(".adjust");
 const adjustmentsContainer = document.querySelectorAll('.sliders');
 const closeAdjustmentBtn = document.querySelectorAll(".close-adjustment");
-const lockBtn = document.querySelector(".lock");
+const lockBtn = document.querySelectorAll(".lock");
 const copyHexBtn = document.querySelectorAll(".color h2");
 const copyClipboard = document.querySelector(".copy-container");
 const copyPopup = document.querySelector(".copy-popup");
@@ -32,13 +32,25 @@ copyPopup.addEventListener("transitionend", () => {
 
 adjustmentBtn.forEach((btn, index) => {
   btn.addEventListener('click', () => {
-    openColorAdjustment(index);
+    openAdjustmentPanel(index);
   });
 });
 
 closeAdjustmentBtn.forEach((btn, index) => {
   btn.addEventListener('click', () => {
-    closeColorAdjustment(index);
+    closeAdjustmentPanel(index);
+  });
+});
+
+lockBtn.forEach((btn,index) => {
+  btn.addEventListener('click', () => {
+    if (colorDivs[index].classList.contains("panel-lock")) {
+      colorDivs[index].classList.remove('panel-lock');
+      btn.innerHTML = `<i class="fas fa-lock-open"></i>`;
+    } else {
+      colorDivs[index].classList.add("panel-lock");
+      btn.innerHTML = `<i class="fas fa-lock"></i>`;
+    }
   });
 });
 
@@ -56,8 +68,13 @@ function randomColors() {
   initialColors = [];
   colorDivs.forEach((div) => {
     const randomColor = generateHex().hex();
-    initialColors.push(randomColor);
     const hexText = div.children[0];
+    if (div.classList.contains('panel-lock')) {
+      initialColors.push(hexText.innerText);
+      return;
+    } else {
+      initialColors.push(randomColor);
+    }
     const adj = div.querySelector(".adjust");
     const lock = div.querySelector(".lock");
     div.style.backgroundColor = randomColor;
@@ -169,18 +186,20 @@ function copyToClipboard(index) {
   const colorHex = chroma(colorDivs[index].style.backgroundColor).hex();
   box.value = colorHex;
   document.body.appendChild(box);
+  // !new features
   box.select();
   document.execCommand("copy");
+  // ~!new features
   document.body.removeChild(box);
   copyClipboard.classList.add("active");
   copyPopup.classList.add("active");
 }
 
-function openColorAdjustment(index) {
+function openAdjustmentPanel(index) {
   adjustmentsContainer[index].classList.toggle('active');
 }
 
-function closeColorAdjustment(index) {
+function closeAdjustmentPanel(index) {
   adjustmentsContainer[index].classList.remove('active');
 }
 
@@ -189,3 +208,4 @@ function adjustmentContainerTransition() {
     container.style.transition = `all 0.5s ease-in-out`;
   });
 }
+
