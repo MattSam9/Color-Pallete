@@ -4,13 +4,25 @@ const generateBtn = document.querySelector(".generate");
 const sliders = document.querySelectorAll(".sliders input");
 const currentHex = document.querySelectorAll(".color h2");
 const adjustmentBtn = document.querySelectorAll(".adjust");
-const adjustmentsContainer = document.querySelectorAll('.sliders');
+const adjustmentsContainer = document.querySelectorAll(".sliders");
 const closeAdjustmentBtn = document.querySelectorAll(".close-adjustment");
 const lockBtn = document.querySelectorAll(".lock");
 const copyHexBtn = document.querySelectorAll(".color h2");
 const copyClipboard = document.querySelector(".copy-container");
 const copyPopup = document.querySelector(".copy-popup");
+const saveBtn = document.querySelector(".save");
+const saveContainer = document.querySelector(".save-container");
+const savePopup = document.querySelector(".save-popup");
+const saveSubmit = document.querySelector('.submit-save');
+const closeSaveBtn = document.querySelector(".close-save");
+const libraryBtn = document.querySelector(".library");
+const libraryContainer = document.querySelector(".library-container");
+const libraryPopup = document.querySelector(".library-popup");
+const closeLibraryBtn = document.querySelector(".close-library");
 let initialColors;
+let savedPalettes = [];
+
+// ~?selection and variables
 
 // @ Event Listener's
 generateBtn.addEventListener("click", randomColors);
@@ -31,21 +43,21 @@ copyPopup.addEventListener("transitionend", () => {
 });
 
 adjustmentBtn.forEach((btn, index) => {
-  btn.addEventListener('click', () => {
+  btn.addEventListener("click", () => {
     openAdjustmentPanel(index);
   });
 });
 
 closeAdjustmentBtn.forEach((btn, index) => {
-  btn.addEventListener('click', () => {
+  btn.addEventListener("click", () => {
     closeAdjustmentPanel(index);
   });
 });
 
-lockBtn.forEach((btn,index) => {
-  btn.addEventListener('click', () => {
+lockBtn.forEach((btn, index) => {
+  btn.addEventListener("click", () => {
     if (colorDivs[index].classList.contains("panel-lock")) {
-      colorDivs[index].classList.remove('panel-lock');
+      colorDivs[index].classList.remove("panel-lock");
       btn.innerHTML = `<i class="fas fa-lock-open"></i>`;
     } else {
       colorDivs[index].classList.add("panel-lock");
@@ -54,11 +66,34 @@ lockBtn.forEach((btn,index) => {
   });
 });
 
-// ! add slider set
+saveBtn.addEventListener("click", () => {
+  saveContainer.classList.toggle("active");
+  savePopup.classList.toggle("active");
+});
+
+closeSaveBtn.addEventListener("click", () => {
+  saveContainer.classList.remove("active");
+  savePopup.classList.remove("active");
+});
+
+saveSubmit.addEventListener('click', savePalette);
+
+libraryBtn.addEventListener("click", () => {
+  libraryContainer.classList.toggle("active");
+  libraryPopup.classList.toggle("active");
+});
+
+closeLibraryBtn.addEventListener("click", () => {
+  libraryContainer.classList.remove("active");
+  libraryPopup.classList.remove("active");
+});
+
+// ! add slider timing set
 setTimeout(adjustmentContainerTransition, 2000);
 
+// ~@ Event Listener's
 
-// //functions
+// // Functions
 function generateHex() {
   let hex = chroma.random();
   return hex;
@@ -69,7 +104,7 @@ function randomColors() {
   colorDivs.forEach((div) => {
     const randomColor = generateHex().hex();
     const hexText = div.children[0];
-    if (div.classList.contains('panel-lock')) {
+    if (div.classList.contains("panel-lock")) {
       initialColors.push(hexText.innerText);
       return;
     } else {
@@ -196,16 +231,47 @@ function copyToClipboard(index) {
 }
 
 function openAdjustmentPanel(index) {
-  adjustmentsContainer[index].classList.toggle('active');
+  adjustmentsContainer[index].classList.toggle("active");
 }
 
 function closeAdjustmentPanel(index) {
-  adjustmentsContainer[index].classList.remove('active');
+  adjustmentsContainer[index].classList.remove("active");
 }
 
 function adjustmentContainerTransition() {
-  adjustmentsContainer.forEach(container => {
+  adjustmentsContainer.forEach((container) => {
     container.style.transition = `all 0.5s ease-in-out`;
   });
 }
 
+function savePalette(event) {
+  saveContainer.classList.remove("active");
+  savePopup.classList.remove("active");
+  let paletteNr = savedPalettes.length;
+  const name = document.querySelector(".save-name").value || `palette ${paletteNr}`;
+  const color = [];
+  currentHex.forEach(item => {
+    color.push(item.innerText);
+  });
+  const paletteObject = {
+    name,
+    color,
+    nr: paletteNr
+  };
+  savedPalettes.push(paletteObject);
+  saveToLocalStorage(savedPalettes);
+  document.querySelector(".save-name").value = "";
+}
+
+function saveToLocalStorage(savedPalettes) {
+  let localPalette;
+  if (localStorage.getItem('palette') === null) {
+    localPalette = [];
+  } else {
+    localPalette = JSON.parse(localStorage.getItem('palette'));
+  }
+  localPalette.push(savedPalettes);
+  localStorage.setItem("palette", JSON.stringify(localPalette));
+}
+
+// ~/ Functions
