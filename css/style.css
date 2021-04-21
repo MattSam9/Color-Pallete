@@ -169,7 +169,7 @@ input[type="range"]::-moz-range-thumb {
   -o-border-radius: 1rem;
 }
 
-.copy-container {
+.copy-container, .save-container, .library-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -182,7 +182,7 @@ input[type="range"]::-moz-range-thumb {
   pointer-events: none;
   opacity: 0;
 }
-.copy-popup {
+.copy-popup, .save-popup, .library-popup {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -207,14 +207,50 @@ input[type="range"]::-moz-range-thumb {
   -ms-transform: translateY(-2rem);
   -o-transform: translateY(-2rem);
 }
-.copy-container.active {
+.copy-container.active, .save-container.active, .library-container.active {
   pointer-events: all;
   opacity: 1;
 }
-.copy-popup.active {
+.copy-popup.active, .save-popup.active, .library-popup.active {
   transform: translateY(0);
   -webkit-transform: translateY(0);
   -moz-transform: translateY(0);
   -ms-transform: translateY(0);
   -o-transform: translateY(0);
+}
+.save-popup .close-save, .library-popup .close-library{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.8rem;
+  border: none;
+  background-color: #0a1347;
+  color: white;
+  cursor: pointer;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 0.7rem;
+}
+.save-popup .save-name{
+  padding: 0.8rem;
+  font-size: 1.6rem;
+  outline: none;
+  background-color: antiquewhite;
+  border-radius: 0.7rem;
+  -webkit-border-radius: 0.7rem;
+  -moz-border-radius: 0.7rem;
+  -ms-border-radius: 0.7rem;
+  -o-border-radius: 0.7rem;
+}
+.save-popup .submit-save{
+  padding: 0.5rem 2rem;
+  font-size: 1.6rem;
+  background-color: #0a1347;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.7rem;
+  -webkit-border-radius: 0.7rem;
+  -moz-border-radius: 0.7rem;
+  -ms-border-radius: 0.7rem;
+  -o-border-radius: 0.7rem;
 }
