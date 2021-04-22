@@ -257,11 +257,13 @@ input[type="range"]::-moz-range-thumb {
 .library-popup{
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   font-size: 2rem;
-  min-width: 50rem;
-  min-height: 30vh;
+  min-width: 40rem;
+  min-height: 20vh;
+  max-height: 80vh;
+  overflow: auto;
   padding: 2rem 0;
   background-color: white;
   border-radius: 2rem;
@@ -280,6 +282,10 @@ input[type="range"]::-moz-range-thumb {
   -ms-transform: translateY(-2rem);
   -o-transform: translateY(-2rem);
 }
+.library-popup h4{
+  position: relative;
+  top: 0;
+}
 .palette-container {
   width: 95%;
   height: 100%;
@@ -292,6 +298,7 @@ input[type="range"]::-moz-range-thumb {
   flex: 1;
   color: rgb(240, 105, 9);
   text-shadow: 0.1rem 0.1rem 0.1rem black;
+  margin-right: 2rem;
 }
 .small-pallete-container{
   display: flex;
