@@ -13,7 +13,8 @@ const copyPopup = document.querySelector(".copy-popup");
 const saveBtn = document.querySelector(".save");
 const saveContainer = document.querySelector(".save-container");
 const savePopup = document.querySelector(".save-popup");
-const saveSubmit = document.querySelector('.submit-save');
+const saveSubmit = document.querySelector(".submit-save");
+const enterSubmit = document.querySelector('.save-name');
 const closeSaveBtn = document.querySelector(".close-save");
 const libraryBtn = document.querySelector(".library");
 const libraryContainer = document.querySelector(".library-container");
@@ -69,6 +70,7 @@ lockBtn.forEach((btn, index) => {
 saveBtn.addEventListener("click", () => {
   saveContainer.classList.toggle("active");
   savePopup.classList.toggle("active");
+  enterSubmit.focus();
 });
 
 closeSaveBtn.addEventListener("click", () => {
@@ -76,16 +78,28 @@ closeSaveBtn.addEventListener("click", () => {
   savePopup.classList.remove("active");
 });
 
-saveSubmit.addEventListener('click', savePalette);
+saveSubmit.addEventListener("click", savePalette);
+enterSubmit.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    savePalette();
+  }
+});
 
 libraryBtn.addEventListener("click", () => {
   libraryContainer.classList.toggle("active");
   libraryPopup.classList.toggle("active");
+  if (libraryContainer.classList.contains("active")) {
+    activeLibrary();
+  }
 });
 
 closeLibraryBtn.addEventListener("click", () => {
   libraryContainer.classList.remove("active");
   libraryPopup.classList.remove("active");
+  const allPalette = libraryPopup.querySelectorAll('.palette-container');
+  allPalette.forEach(palette => {
+    libraryPopup.removeChild(palette);
+  });
 });
 
 // ! add slider timing set
@@ -247,31 +261,112 @@ function adjustmentContainerTransition() {
 function savePalette(event) {
   saveContainer.classList.remove("active");
   savePopup.classList.remove("active");
-  let paletteNr = savedPalettes.length;
-  const name = document.querySelector(".save-name").value || `palette ${paletteNr}`;
+  let paletteNr;
+  if (localStorage.getItem('palette') !== null) {
+    paletteNr = JSON.parse(localStorage.getItem('palette')).length;
+  } else {
+    paletteNr = savedPalettes.length;
+  }
+  const name =
+  document.querySelector(".save-name").value || `palette ${paletteNr + 1}`;
   const color = [];
-  currentHex.forEach(item => {
-    color.push(item.innerText);
+  currentHex.forEach((hex) => {
+    color.push(hex.innerText);
   });
   const paletteObject = {
     name,
     color,
-    nr: paletteNr
+    nr: paletteNr,
   };
   savedPalettes.push(paletteObject);
-  saveToLocalStorage(savedPalettes);
+  saveToLocalStorage(paletteObject);
   document.querySelector(".save-name").value = "";
 }
 
-function saveToLocalStorage(savedPalettes) {
+function saveToLocalStorage(paletteObj) {
+  let localPalette = checkStorege();
+  localPalette.push(paletteObj);
+  localStorage.setItem("palette", JSON.stringify(localPalette));
+}
+
+function activeLibrary() {
   let localPalette;
-  if (localStorage.getItem('palette') === null) {
+  const libraryH4 = document.querySelector('.library-popup h4');
+  if (localStorage.getItem("palette") === null) {
+    localPalette = [];
+    libraryH4.innerText = "There are no palettes in memory";
+  } else {
+    localPalette = JSON.parse(localStorage.getItem("palette"));
+    libraryH4.innerText = "Pick your palette";
+  }
+  localPalette.forEach((obj, index) => {
+    const paletteContainer = document.createElement("div");
+    paletteContainer.classList.add("palette-container");
+    paletteContainer.setAttribute(`number`,index);
+    libraryPopup.appendChild(paletteContainer);
+    const paletteName = document.createElement("h4");
+    paletteName.innerText = obj.name;
+    paletteContainer.appendChild(paletteName);
+
+    const removeBtn = document.createElement("button");
+    removeBtn.innerText = "Remove";
+    removeBtn.classList.add("palette-remove");
+    removeBtn.addEventListener("click", (event) => {
+      removePalette(event);
+    });
+    paletteContainer.appendChild(removeBtn);
+
+    const smallPaletteContainer = document.createElement("div");
+    smallPaletteContainer.classList.add("small-pallete-container");
+    paletteContainer.appendChild(smallPaletteContainer);
+    const smallPalette = [];
+    for (let i = 0; i < 5; i++) {
+      smallPalette[i] = document.createElement("div");
+      smallPalette[i].classList.add("small-palette");
+      smallPalette[i].style.backgroundColor = obj.color[i];
+      smallPaletteContainer.appendChild(smallPalette[i]);
+    }
+    const selectBtn = document.createElement("button");
+    selectBtn.innerText = "Select";
+    selectBtn.classList.add("palette-select");
+    selectBtn.addEventListener("click", () => {
+      callPalette(obj);
+    });
+    paletteContainer.appendChild(selectBtn);
+  });
+}
+function callPalette(obj) {
+  console.log(obj);
+}
+function removePalette(event) {
+  let localPalette = checkStorege();
+  savedPalettes = localPalette;
+  let number = parseInt(event.target.parentElement.getAttribute("number"));
+  let paletteIndex;
+  localPalette.forEach((obj, index) => {
+    if (obj.nr === number) {
+      paletteIndex = index;
+    }
+  });
+  localPalette.splice(paletteIndex, 1);
+  libraryPopup.removeChild(event.target.parentElement);
+  if (localPalette.length >= 1) {
+    localStorage.setItem('palette', JSON.stringify(localPalette));
+  } else {
+    localStorage.removeItem('palette');
+      libraryContainer.classList.remove("active");
+      libraryPopup.classList.remove("active");
+  }
+}
+
+function checkStorege() {
+  let localPalette;
+  if (localStorage.getItem("palette") === null) {
     localPalette = [];
   } else {
-    localPalette = JSON.parse(localStorage.getItem('palette'));
+    localPalette = JSON.parse(localStorage.getItem("palette"));
   }
-  localPalette.push(savedPalettes);
-  localStorage.setItem("palette", JSON.stringify(localPalette));
+  return localPalette;
 }
 
 // ~/ Functions
