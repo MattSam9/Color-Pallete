@@ -182,7 +182,7 @@ input[type="range"]::-moz-range-thumb {
   pointer-events: none;
   opacity: 0;
 }
-.copy-popup, .save-popup, .library-popup {
+.copy-popup, .save-popup {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -253,4 +253,82 @@ input[type="range"]::-moz-range-thumb {
   -moz-border-radius: 0.7rem;
   -ms-border-radius: 0.7rem;
   -o-border-radius: 0.7rem;
+}
+.library-popup{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 2rem;
+  min-width: 50rem;
+  min-height: 30vh;
+  padding: 2rem 0;
+  background-color: white;
+  border-radius: 2rem;
+  -webkit-border-radius: 2rem;
+  -moz-border-radius: 2rem;
+  -ms-border-radius: 2rem;
+  -o-border-radius: 2rem;
+  transition: all 0.9s ease-in-out;
+  -webkit-transition: all 0.9s ease-in-out;
+  -moz-transition: all 0.9s ease-in-out;
+  -ms-transition: all 0.9s ease-in-out;
+  -o-transition: all 0.9s ease-in-out;
+  transform: translateY(-2rem);
+  -webkit-transform: translateY(-2rem);
+  -moz-transform: translateY(-2rem);
+  -ms-transform: translateY(-2rem);
+  -o-transform: translateY(-2rem);
+}
+.palette-container {
+  width: 95%;
+  height: 100%;
+  margin: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.palette-container h4 {
+  flex: 1;
+  color: rgb(240, 105, 9);
+  text-shadow: 0.1rem 0.1rem 0.1rem black;
+}
+.small-pallete-container{
+  display: flex;
+}
+.small-palette{
+  width: 2rem;
+  height: 3rem;
+}
+.palette-container .palette-select{
+  cursor: pointer;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #0a1347;
+  color: white;
+  margin-left: 1rem;
+  height: 3rem;
+  padding: 0 0.3rem;
+  border-radius:0.5rem;
+  -webkit-border-radius:0.5rem;
+  -moz-border-radius:0.5rem;
+  -ms-border-radius:0.5rem;
+  -o-border-radius:0.5rem;
+}
+.palette-remove{
+  cursor: pointer;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: rgb(255, 7, 56);
+  margin-right: 1rem;
+  color: white;
+  height: 3rem;
+  padding: 0 0.3rem;
+  border-radius:0.5rem;
+  -webkit-border-radius:0.5rem;
+  -moz-border-radius:0.5rem;
+  -ms-border-radius:0.5rem;
+  -o-border-radius:0.5rem;
 }
