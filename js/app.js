@@ -14,7 +14,7 @@ const saveBtn = document.querySelector(".save");
 const saveContainer = document.querySelector(".save-container");
 const savePopup = document.querySelector(".save-popup");
 const saveSubmit = document.querySelector(".submit-save");
-const enterSubmit = document.querySelector('.save-name');
+const enterSubmit = document.querySelector(".save-name");
 const closeSaveBtn = document.querySelector(".close-save");
 const libraryBtn = document.querySelector(".library");
 const libraryContainer = document.querySelector(".library-container");
@@ -79,8 +79,8 @@ closeSaveBtn.addEventListener("click", () => {
 });
 
 saveSubmit.addEventListener("click", savePalette);
-enterSubmit.addEventListener('keypress', (event) => {
-  if (event.key === 'Enter') {
+enterSubmit.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
     savePalette();
   }
 });
@@ -96,8 +96,8 @@ libraryBtn.addEventListener("click", () => {
 closeLibraryBtn.addEventListener("click", () => {
   libraryContainer.classList.remove("active");
   libraryPopup.classList.remove("active");
-  const allPalette = libraryPopup.querySelectorAll('.palette-container');
-  allPalette.forEach(palette => {
+  const allPalette = libraryPopup.querySelectorAll(".palette-container");
+  allPalette.forEach((palette) => {
     libraryPopup.removeChild(palette);
   });
 });
@@ -262,13 +262,13 @@ function savePalette(event) {
   saveContainer.classList.remove("active");
   savePopup.classList.remove("active");
   let paletteNr;
-  if (localStorage.getItem('palette') !== null) {
-    paletteNr = JSON.parse(localStorage.getItem('palette')).length;
+  if (localStorage.getItem("palette") !== null) {
+    paletteNr = JSON.parse(localStorage.getItem("palette")).length;
   } else {
     paletteNr = savedPalettes.length;
   }
   const name =
-  document.querySelector(".save-name").value || `palette ${paletteNr + 1}`;
+    document.querySelector(".save-name").value || `palette ${paletteNr + 1}`;
   const color = [];
   currentHex.forEach((hex) => {
     color.push(hex.innerText);
@@ -291,7 +291,7 @@ function saveToLocalStorage(paletteObj) {
 
 function activeLibrary() {
   let localPalette;
-  const libraryH4 = document.querySelector('.library-popup h4');
+  const libraryH4 = document.querySelector(".library-popup h4");
   if (localStorage.getItem("palette") === null) {
     localPalette = [];
     libraryH4.innerText = "There are no palettes in memory";
@@ -302,7 +302,7 @@ function activeLibrary() {
   localPalette.forEach((obj, index) => {
     const paletteContainer = document.createElement("div");
     paletteContainer.classList.add("palette-container");
-    paletteContainer.setAttribute(`number`,index);
+    paletteContainer.setAttribute(`number`, index);
     libraryPopup.appendChild(paletteContainer);
     const paletteName = document.createElement("h4");
     paletteName.innerText = obj.name;
@@ -337,6 +337,28 @@ function activeLibrary() {
 }
 function callPalette(obj) {
   console.log(obj);
+  colorDivs.forEach((div, index) => {
+    const color = obj.color[index];
+    div.style.backgroundColor = color;
+    currentHex[index].innerText = color;
+    checkTextcontrast(color, currentHex[index]);
+    checkTextcontrast(color, adjustmentBtn[index]);
+    checkTextcontrast(color, lockBtn[index]);
+    const sliders = div.querySelectorAll('.sliders input[type="range"]');
+    const hue = sliders[0];
+    const brightness = sliders[1];
+    const saturation = sliders[2];
+    colorizeSlider(color, hue, brightness, saturation);
+    hue.value = chroma(color).get('hsl.h');
+    brightness.value = chroma(color).get("hsl.l");
+    saturation.value = chroma(color).get('hsl.s');
+  });
+  libraryContainer.classList.remove("active");
+  libraryPopup.classList.remove("active");
+  const allPalette = libraryPopup.querySelectorAll(".palette-container");
+  allPalette.forEach((palette) => {
+    libraryPopup.removeChild(palette);
+  });
 }
 function removePalette(event) {
   let localPalette = checkStorege();
@@ -351,11 +373,11 @@ function removePalette(event) {
   localPalette.splice(paletteIndex, 1);
   libraryPopup.removeChild(event.target.parentElement);
   if (localPalette.length >= 1) {
-    localStorage.setItem('palette', JSON.stringify(localPalette));
+    localStorage.setItem("palette", JSON.stringify(localPalette));
   } else {
-    localStorage.removeItem('palette');
-      libraryContainer.classList.remove("active");
-      libraryPopup.classList.remove("active");
+    localStorage.removeItem("palette");
+    libraryContainer.classList.remove("active");
+    libraryPopup.classList.remove("active");
   }
 }
 
