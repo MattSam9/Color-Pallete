@@ -13,6 +13,7 @@ const copyPopup = document.querySelector(".copy-popup");
 const saveBtn = document.querySelector(".save");
 const saveContainer = document.querySelector(".save-container");
 const savePopup = document.querySelector(".save-popup");
+const saveInputName = document.querySelector('.save-name');
 const saveSubmit = document.querySelector('.submit-save');
 const closeSaveBtn = document.querySelector(".close-save");
 const libraryBtn = document.querySelector(".library");
@@ -69,6 +70,13 @@ lockBtn.forEach((btn, index) => {
 saveBtn.addEventListener("click", () => {
   saveContainer.classList.toggle("active");
   savePopup.classList.toggle("active");
+  saveInputName.focus();
+});
+
+saveInputName.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    savePalette();
+  }
 });
 
 closeSaveBtn.addEventListener("click", () => {
@@ -247,8 +255,9 @@ function adjustmentContainerTransition() {
 function savePalette(event) {
   saveContainer.classList.remove("active");
   savePopup.classList.remove("active");
+  
   let paletteNr = savedPalettes.length;
-  const name = document.querySelector(".save-name").value || `palette ${paletteNr}`;
+  const name = document.querySelector(".save-name").value || `palette ${paletteNr  + 1}`;
   const color = [];
   currentHex.forEach(item => {
     color.push(item.innerText);
@@ -259,19 +268,21 @@ function savePalette(event) {
     nr: paletteNr
   };
   savedPalettes.push(paletteObject);
-  saveToLocalStorage(savedPalettes);
+  saveToLocalStorage(paletteObject);
   document.querySelector(".save-name").value = "";
 }
 
-function saveToLocalStorage(savedPalettes) {
-  let localPalette;
-  if (localStorage.getItem('palette') === null) {
-    localPalette = [];
-  } else {
-    localPalette = JSON.parse(localStorage.getItem('palette'));
-  }
-  localPalette.push(savedPalettes);
+function saveToLocalStorage(paletteObject) {
+  let localPalette = checkLocalstorage();
+  localPalette.push(paletteObject);
   localStorage.setItem("palette", JSON.stringify(localPalette));
+}
+function checkLocalstorage() {
+  let localPalette = [];
+  if (localStorage.getItem("palette") !== null) {
+    localPalette = JSON.parse(localStorage.getItem("palette"));
+  }
+  return localPalette;
 }
 
 // ~/ Functions
