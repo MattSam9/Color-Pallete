@@ -9,15 +9,40 @@ html {
 body {
   font-family: "Acme", sans-serif;
   color: rgb(51, 51, 51);
+  background-color: #333333 ;
 }
 path,
 svg,
 i {
   pointer-events: none;
 }
-
+.logo {
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2rem 0;
+  background-image: linear-gradient(to bottom,rgba(31, 31, 31, 0.9),rgb(34, 34, 34,0.8)),url(../img/banner.jpg);
+}
+.logo img{
+  width: 6rem;
+}
+.logo h1{
+  font-size: 2.4rem;
+  color: #fa769c;
+  text-shadow: 0.1rem 0.1rem 0.5rem #58363f88;
+  font-family: "Acme", "Arial Narrow", Arial, sans-serif;
+  transform: translateY(1rem);
+  -webkit-transform: translateY(1rem);
+  -moz-transform: translateY(1rem);
+  -ms-transform: translateY(1rem);
+  -o-transform: translateY(1rem);
+}
+.logo h1:hover{
+  text-shadow: 0.2rem 0.2rem 1rem rgb(246, 56, 88);
+}
 .colors {
-  min-height: 80vh;
+  height: 65vh;
   display: flex;
   font-size: 1.8rem;
   justify-content: center;
@@ -26,24 +51,30 @@ i {
   overflow: hidden;
 }
 .color {
-  height: 80vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   flex: 1;
   position: relative;
 }
 .color h2 {
   font-size: 2.4rem;
-  margin: 5rem 0;
+  margin: 4rem 0;
   cursor: pointer;
 }
 .controls {
   display: flex;
   flex-direction: column;
 }
-.adjust,
+.adjust {
+  font-size: 2rem;
+  border: none;
+  background-color: transparent;
+  margin: 6rem 0rem 2rem 0rem;
+  cursor: pointer;
+}
 .lock {
   font-size: 2rem;
   border: none;
@@ -89,7 +120,7 @@ i {
   top: 0;
   right: 0rem;
   border: none;
-  background-color: #0a1347;
+  background-color: rgb(3, 152, 179);
   color: white;
   border-top-right-radius: 2rem;
   border-bottom-left-radius: 1rem;
@@ -139,9 +170,11 @@ input[type="range"]::-moz-range-thumb {
 }
 .panel {
   display: flex;
-  height: 20vh;
+  min-height: 20vh;
   justify-content: space-evenly;
   align-items: center;
+  background-image: linear-gradient(to bottom,rgba(27, 27, 27, 0.8),rgba(24, 24, 24, 0.95)),url(../img/banner2.jpg);
+  color: white;
 }
 .library-panel,
 .generate-panel,
@@ -159,7 +192,7 @@ input[type="range"]::-moz-range-thumb {
   font-size: 2rem;
   border: none;
   color: white;
-  background-color: rgb(10, 19, 71);
+  background-color: rgb(3, 152, 179);
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
@@ -224,7 +257,7 @@ input[type="range"]::-moz-range-thumb {
   right: 0;
   padding: 0.8rem;
   border: none;
-  background-color: #0a1347;
+  background-color: rgb(3, 152, 179);
   color: white;
   cursor: pointer;
   border-top-right-radius: 1rem;
@@ -244,7 +277,7 @@ input[type="range"]::-moz-range-thumb {
 .save-popup .submit-save{
   padding: 0.5rem 2rem;
   font-size: 1.6rem;
-  background-color: #0a1347;
+  background-color: rgb(3, 152, 179);
   color: white;
   border: none;
   cursor: pointer;
@@ -312,7 +345,7 @@ input[type="range"]::-moz-range-thumb {
   border: none;
   font-size: 1.2rem;
   font-weight: bold;
-  background-color: #0a1347;
+  background-color: rgb(3, 152, 179);
   color: white;
   margin-left: 1rem;
   height: 3rem;
