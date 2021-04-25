@@ -403,7 +403,6 @@ function getLocal() {
 }
 getLocal();
 function removePalette(event) {
-  console.log(event.target.getAttribute('removeBtn'));
   let localPalettes = checkLocalstorage();
   let fixedIndex;
   localPalettes.forEach((palette, index) => {
