@@ -333,7 +333,7 @@ input[type="range"]::-moz-range-thumb {
   text-shadow: 0.1rem 0.1rem 0.1rem black;
   margin-right: 2rem;
 }
-.small-pallete-container{
+.small-palette-container{
   display: flex;
 }
 .small-palette{
