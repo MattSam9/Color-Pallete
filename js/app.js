@@ -287,6 +287,7 @@ function savePalette(event) {
   paletteRemoveBtn.classList.add("palette-remove");
   paletteRemoveBtn.setAttribute("removeBtn", `${paletteObject.nr}`);
   paletteRemoveBtn.innerText = "Remove";
+  paletteRemoveBtn.addEventListener('click', removePalette);
   const preview = document.createElement("div");
   preview.classList.add("small-palette-container");
   paletteObject.colors.forEach((hex) => {
@@ -341,5 +342,83 @@ function checkLocalstorage() {
   }
   return localPalette;
 }
-
+function getLocal() {
+  let localPalette = checkLocalstorage();
+  if (localPalette.length > 0) {
+    currentPaletteArray = [...localPalette];
+    libraryH4.innerText = "Pick your palette";
+    localPalette.forEach((paletteObject, paletteIndex) => {
+      const paletteContainer = document.createElement("div");
+      paletteContainer.classList.add("palette-container");
+      const paletteH4 = document.createElement("h4");
+      paletteH4.innerText = paletteObject.name;
+      const paletteRemoveBtn = document.createElement("button");
+      paletteRemoveBtn.classList.add("palette-remove");
+      paletteRemoveBtn.setAttribute("removeBtn", `${paletteObject.nr}`);
+      paletteRemoveBtn.innerText = "Remove";
+      paletteRemoveBtn.addEventListener("click", removePalette);
+      const preview = document.createElement("div");
+      preview.classList.add("small-palette-container");
+      paletteObject.colors.forEach((hex) => {
+        const smallPalette = document.createElement("div");
+        smallPalette.classList.add("small-palette");
+        smallPalette.style.backgroundColor = hex;
+        preview.appendChild(smallPalette);
+      });
+      const paletteBtn = document.createElement("button");
+      paletteBtn.classList.add("palette-select");
+      paletteBtn.setAttribute("selectBtn", `${paletteObject.nr}`);
+      paletteBtn.innerText = "Select";
+  
+      // // even listener for library
+      paletteBtn.addEventListener("click", (event) => {
+        libraryContainer.classList.remove("active");
+        libraryPopup.classList.remove("active");
+        const objectIndex = event.target.getAttribute("selectBtn");
+        initialColors = [];
+        localPalette[objectIndex].colors.forEach((color, index) => {
+          initialColors.push(color);
+          colorDivs[index].style.backgroundColor = color;
+          currentHex[index].innerText = color;
+          checkTextcontrast(color, currentHex[index]);
+          checkTextcontrast(color, adjustmentBtn[index]);
+          checkTextcontrast(color, lockBtn[index]);
+          const sliders = colorDivs[index].querySelectorAll(
+            'input[type="range"]'
+          );
+          const hue = sliders[0];
+          const brightness = sliders[1];
+          const saturation = sliders[2];
+          colorizeSlider(color, hue, brightness, saturation);
+        });
+        fixInputsValue();
+      });
+      paletteContainer.appendChild(paletteH4);
+      paletteContainer.appendChild(paletteRemoveBtn);
+      paletteContainer.appendChild(preview);
+      paletteContainer.appendChild(paletteBtn);
+      libraryPopup.appendChild(paletteContainer);
+    });
+  }
+}
+getLocal();
+function removePalette(event) {
+  console.log(event.target.getAttribute('removeBtn'));
+  let localPalettes = checkLocalstorage();
+  let fixedIndex;
+  localPalettes.forEach((palette, index) => {
+    if (palette.nr === event.target.getAttribute('removeBtn')) {
+      fixedIndex = index;
+    }
+  });
+  localPalettes.splice(fixedIndex, 1);
+  currentPaletteArray.splice(fixedIndex, 1);
+  if (localPalettes.length === 0) {
+    localStorage.removeItem('palette');
+    libraryH4.innerText = "There are no palette's in the memory";
+  } else {
+    localStorage.setItem('palette', JSON.stringify(localPalettes));
+  }
+  libraryPopup.removeChild(event.target.parentElement);
+}
 // ~/ Functions
