@@ -336,7 +336,6 @@ function activeLibrary() {
   });
 }
 function callPalette(obj) {
-  console.log(obj);
   colorDivs.forEach((div, index) => {
     const color = obj.color[index];
     div.style.backgroundColor = color;
