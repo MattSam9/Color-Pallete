@@ -1,0 +1,9 @@
+.color-palette .colors {
+  padding: 0rem 1rem;
+}
+.color-palette .copy-popup, .color-palette .save-popup, .color-palette .library-popup {
+  min-width: 80vw;
+  text-align: center;
+}
+
+/*# sourceMappingURL=mobile.css.map */

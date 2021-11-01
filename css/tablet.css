@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+i,
+svg {
+  pointer-events: none;
+}
+
+h1 {
+  font-size: 4rem;
+  font-family: "Ephesis", cursive;
+}
+
+h2, label, .tempo-text {
+  font-size: 3.5rem;
+  font-family: "Birthstone", cursive;
+}
+
+h3 {
+  font-size: 3rem;
+  font-family: "Birthstone", cursive;
+}
+
+h4 {
+  font-size: 2rem;
+  font-family: "PT Serif", serif;
+}
+
+h5 {
+  font-size: 2rem;
+  font-weight: normal;
+  font-family: "PT Serif", serif;
+}
+
+p {
+  font-size: 1.6rem;
+  font-family: "PT Serif", serif;
+}
+
+body {
+  background: linear-gradient(120deg, rgba(217, 175, 166, 0.5), transparent);
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 90vh;
+  padding-top: 1rem;
+  text-align: center;
+}
+
+.color-palette .colors {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr 1fr 0.5fr 0.5fr) repeat(2, 1fr);
+  grid-template-rows: repeat(2, 80vh);
+  overflow: inherit;
+}
+.color-palette .color-container-1 {
+  grid-row: 1/2;
+  grid-column: 2/6;
+}
+.color-palette .color-container-2 {
+  grid-row: 1/2;
+  grid-column: 6/10;
+}
+.color-palette .color-container-3 {
+  grid-row: 1/2;
+  grid-column: 10/14;
+}
+.color-palette .color-container-4 {
+  grid-row: 2/3;
+  grid-column: 4/8;
+}
+.color-palette .color-container-5 {
+  grid-row: 2/3;
+  grid-column: 8/12;
+}
+.color-palette .copy-popup, .color-palette .save-popup, .color-palette .library-popup {
+  min-width: 60vw;
+}
+
+/*# sourceMappingURL=tablet.css.map */
