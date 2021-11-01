@@ -1,0 +1,124 @@
+$btnColor: hsla(14, 86%, 52%, 0.7);
+$btnColorHover: hsla(14, 86%, 52%, 1);
+$checkColor: hsla(120, 100%, 55%, 1);
+$deleteColor: hsla(340, 100%, 50%, 1);
+$c1: hsla(327, 53%, 43%, 1);
+$c2: hsla(208, 62%, 22%, 1);
+$c3: hsla(208, 96%, 28%, 1);
+$c4: hsla(344, 96%, 28%, 1);
+$c5: hsla(33, 65%, 57%, 1);
+$c6: hsla(11, 40%, 75%, 1);
+$c7: hsla(349, 81%, 74%, 1);
+$c8: hsla(51, 100%, 50%, 1);
+$ca1: hsla(327, 53%, 43%, 0.5);
+$ca2: hsla(208, 62%, 22%, 0.5);
+$ca3: hsla(208, 96%, 28%, 0.5);
+$ca4: hsla(344, 96%, 28%, 0.5);
+$ca5: hsla(33, 65%, 57%, 0.5);
+$ca6: hsla(11, 40%, 75%, 0.5);
+$ca7: hsla(349, 81%, 74%, 0.5);
+$ca8: hsla(51, 100%, 50%, 0.5);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+i,
+svg {
+  pointer-events: none;
+}
+
+h1 {
+  font-size: 4rem;
+  font-family: "Ephesis", cursive;
+}
+
+h2, label, .tempo-text {
+  font-size: 3.5rem;
+  font-family: "Birthstone", cursive;
+}
+
+h3 {
+  font-size: 3rem;
+  font-family: "Birthstone", cursive;
+}
+
+h4 {
+  font-size: 2rem;
+  font-family: "PT Serif", serif;
+}
+
+h5 {
+  font-size: 2rem;
+  font-weight: normal;
+  font-family: "PT Serif", serif;
+}
+
+p {
+  font-size: 1.6rem;
+  font-family: "PT Serif", serif;
+}
+
+body {
+  background: linear-gradient(120deg, $ca6, transparent);
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 90vh;
+  padding-top: 1rem;
+  text-align: center;
+}
+
+@mixin rangeStyle {
+  width: 8rem;
+  -webkit-appearance: none;
+  background: $c6;
+  border-radius: 2rem;
+  -webkit-border-radius: 2rem;
+  -moz-border-radius: 2rem;
+  -ms-border-radius: 2rem;
+  -o-border-radius: 2rem;
+
+  &::-moz-range-thumb {
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+    border: 1px solid #000000;
+    height: 1.5rem;
+    width: 1rem;
+    border-radius: 3px;
+    background: radial-gradient(gold, rgb(255, 94, 0));
+    cursor: pointer;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 1px solid #000000;
+    height: 1.5rem;
+    width: 1rem;
+    border-radius: 3px;
+    background: radial-gradient(gold, rgb(255, 94, 0));
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  }
+
+  &::-ms-thumb {
+    box-shadow: 1px 1px 1px #000000,
+      0px 0px 1px #0d0d0d;
+    border: 1px solid #000000;
+    height: 1.5rem;
+    width: 1rem;
+    border-radius: 3px;
+    background: radial-gradient(gold, rgb(255, 94, 0));
+    cursor: pointer;
+  }
+}
